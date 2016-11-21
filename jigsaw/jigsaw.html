@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style id="style">
+        #pic {
+            position: absolute;
+            top: 150px;
+            left: 900px;
+            width: 500px;
+            height: 350px;
+        }
+        
+        .jig {
+            background: url(./pic.jpg);
+            position: absolute;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <img id="pic" src="./pic.jpg" />
+    <div id="jigsaw"></div>
+    <script>
+
+
+
+
+         var img = new Image();
+    var realWidth;
+    var realHeight;
+    img.src=document.getElementById("pic").src;
+    img.onload = function(){
+        realWidth = img.width;
+        realHeight = img.height;
+        var x=document.getElementById("jigsaw");
+        for(var i=0; i<9; i++){
+            var para = document.createElement("div");
+            var element = document.getElementById("jigsaw");
+            var row = parseInt(i/3);
+            var col = i%3;
+            para.className = "jig";
+            
+            var pstyle = para.style;
+
+            pstyle.width = realWidth/3+"px";
+            pstyle.height =realHeight/3+"px";
+            para.style.top = (row*realHeight/3+50)+"px";
+            para.style.left = (col*realWidth/3+50)+"px";
+            para.style.backgroundPosition = "-"+(col*realWidth/3)+"px -"+(row*realHeight/3)+"px";
+            para.onclick = function(){
+                for(var j=0; j<9; j++){
+                    var block = document.getElementsByClassName("jig");
+                    if(block[j].style.display =="none")
+                        var empty = block[j];
+                }
+                var temp = this.style.backgroundPosition;
+                this.style.backgroundPosition = empty.style.backgroundPosition;
+                empty.style.backgroundPosition = temp;
+                this.style.display = "none";
+                empty.style.display = "inline";
+
+            }
+            element.appendChild(para);
+        }
+        para.style.display = "none";
+        var change = document.getElementsByClassName("jig");
+        for(var i=0; i<5 ;i++){
+            var fir = parseInt(Math.random()*9);
+            var sec = parseInt(Math.random()*9);
+            var temp = change[fir].style.backgroundPosition;
+            change[fir].style.backgroundPosition = change[sec].style.backgroundPosition;
+            change[sec].style.backgroundPosition = temp;
+        }
+        
+
+    } 
+
+    
+    </script>
+</body>
+
+</html>
