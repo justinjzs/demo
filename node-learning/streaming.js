@@ -12,9 +12,9 @@ var fs = require('fs');
 //     console.log('finished');
 // });
 
-var http = require('http');                         //readfiles pipe to res 
+var http = require('http');                         //readfiles pipe to res
 http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    fs.createReadStream('./test.json').pipe(res);
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    fs.createReadStream('test.json').pipe(res);
 }).listen(2016);
 console.log('Server running on http://localhost:2016/');
