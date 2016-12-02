@@ -1,0 +1,6 @@
+Node provides an event-driven and asynchronous platform for server-side JavaScript.
+Node is designed for: DIRT It stands for data-intensive real-time applications
+Because Node itself is very lightweight
+on I/O, it’s good at shuffling or proxying data from one pipe to another. It allows a
+server to hold a number of connections open while handling many requests and keeping
+a small memory footprint. It’s designed to be responsive, like the browser.
