@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\streaming.js",
+            "program": "${workspaceRoot}\\chatroom/server.js",
             "cwd": "${workspaceRoot}",
             "outFiles": [],
             "sourceMaps": true
