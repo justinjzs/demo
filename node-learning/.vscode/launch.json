@@ -8,8 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\file-watcher/watcher.js",
-            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}\\random_story\\random_story.js",
+            "cwd": "${workspaceRoot}\\random_story",
             "outFiles": [],
             "sourceMaps": true
         },
