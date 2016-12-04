@@ -1,6 +1,78 @@
+﻿//16.12.2
 Node provides an event-driven and asynchronous platform for server-side JavaScript.
+
 Node is designed for: DIRT It stands for data-intensive real-time applications
-Because Node itself is very lightweight
-on I/O, it’s good at shuffling or proxying data from one pipe to another. It allows a
-server to hold a number of connections open while handling many requests and keeping
+
+Because Node itself is very lightweight on I/O, it’s good at shuffling or proxying data from one pipe to another.
+ It allows a server to hold a number of connections open while handling many requests and keeping
 a small memory footprint. It’s designed to be responsive, like the browser.
+
+Event emitters
+An event emitter is associated with a conceptual resource of some kind and can send
+and receive messages to and from the resource. The resource could be a connection
+to a remote server or something more abstract, like a game character. The Johnny-
+Five project (https://github.com/rwldrn/johnny-five), in fact, leverages Node for
+robotics applications, using event emitters to control Arduino microcontrollers.
+
+A note about require and synchronous I/O
+require is one of the few synchronous I/O operations available in Node. Because
+modules are used often and are typically included at the top of a file, having require
+be synchronous helps keep code clean, ordered, and readable.
+But avoid using require in I/O-intensive parts of your application. Any synchronous
+call will block Node from doing anything until the call has finished. For example, if
+you’re running an HTTP server, you would take a performance hit if you used require
+on each incoming request. This is typically why require and other synchronous operations
+are used only when the application initially loads.
+
+What really gets exported
+What ultimately gets exported in your application is module.exports. exports is set
+up simply as a global reference to module.exports, which initially is defined as an
+empty object that you can add properties to. So exports.myFunc is just shorthand
+for module.exports.myFunc.
+As a result, if exports is set to anything else, it breaks the reference between
+module.exports and exports. Because module.exports is what really gets
+exported, exports will no longer work as expected—it doesn’t reference module
+.exports anymore. If you want to maintain that link, you can make module.exports
+reference exports again as follows:
+module.exports = exports = Currency;
+
+The Node convention for asynchronous callbacks
+Most Node built-in modules use callbacks with two arguments: the first argument is
+for an error, should one occur, and the second argument is for the results. The error
+argument is often abbreviated as er or err.
+Here’s a typical example of this common function signature:
+var fs = require('fs');
+fs.readFile('./titles.json', function(er, data) {
+if (er) throw er;
+// do something with data if no error has occurred
+});
+
+Error handling
+A convention you can use when creating event emitters is to emit an error type event
+instead of directly throwing an error. This allows you to define custom event response
+logic by setting one or more listeners for this event type.
+The following code shows how an error listener handles an emitted error by logging
+into the console:
+var events = require('events');
+var myEmitter = new events.EventEmitter();
+myEmitter.on('error', function(err) {
+console.log('ERROR: ' + err.message);
+});
+myEmitter.emit('error', new Error('Something is wrong.'));
+If no listener for this event type is defined when the error event type is emitted, the
+event emitter will output a stack trace (a list of program instructions that had executed
+up to the point when the error occurred) and halt execution. The stack trace will
+indicate an error of the type specified by the emit call’s second argument. This
+behavior is unique to error type events; when other event types are emitted, and
+they have no listeners, nothing happens.
+If an error type event is emitted without an error object supplied as the second
+argument, a stack trace will indicate an “Uncaught, unspecified ‘error’ event” error,
+and your application will halt. There is a deprecated method you can use to deal with
+this error—you can define your own response by defining a global handler using the
+following code:
+process.on('uncaughtException', function(err){
+console.error(err.stack);
+process.exit(1);
+});
+Alternatives to this, such as domains (http://nodejs.org/api/domain.html), are being
+developed, but they’re considered experimental.
