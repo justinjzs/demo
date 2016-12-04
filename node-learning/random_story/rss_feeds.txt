@@ -1,0 +1,4 @@
+http://cn.reuters.com/rssFeed/chinaNews/
+http://cn.reuters.com/rssFeed/CNAnalysesNews/
+http://cn.reuters.com/rssFeed/CNIntlBizNews/
+http://cn.reuters.com/rssFeed/CNTopGenNews/
