@@ -47,6 +47,7 @@ var server = http.createServer(function (request, response) {   //建立http服�
         filePath = 'public'+ request.url;
     }
     var absPath = './' + filePath;
+    console.log(absPath);
     serveStatic(response, cache, absPath);
 });
 

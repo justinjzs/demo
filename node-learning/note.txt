@@ -76,3 +76,14 @@ process.exit(1);
 });
 Alternatives to this, such as domains (http://nodejs.org/api/domain.html), are being
 developed, but they’re considered experimental.
+
+Chapter4
+
+Prior to the callback being triggered, Node will
+parse the request up through the HTTP headers and provide them as part of the req
+object. But Node doesn’t start parsing the body of the request until the callback has
+been fired
+
+You can add and remove headers in any order, but only up to the first res.write() or
+res.end() call. After the first part of the response body is written, Node will flush the
+HTTP headers that have been set.

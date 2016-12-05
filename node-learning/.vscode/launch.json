@@ -8,8 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\random_story\\random_story.js",
-            "cwd": "${workspaceRoot}\\random_story",
+            "program": "${workspaceRoot}\\webapp\\web2.js",
+            "cwd": "${workspaceRoot}\\webapp",
             "outFiles": [],
             "sourceMaps": true
         },
